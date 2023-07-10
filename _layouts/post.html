@@ -25,19 +25,7 @@ layout: base
 {% include_cached components/post.html post=page no_link_title=true no_excerpt=true hide_image=page.hide_image hide_description=page.hide_description %}
 
 {% include components/dingbat.html %}
-
-{% assign addons = page.addons | default:site.hydejack.post_addons %}
-{% include body/comments.html %}
-{{addons}}
-{% for addon in addons %}
-  {% case addon %}
-    {% when 'about' %}
-      {% include_cached components/about.html author=page.author %}
-    {% when 'related' %}
-      {% include if-non-null try="components/related-posts.html" %}
-    {% when 'comments' %}
-      {{"cooooo"}}
-      {% include body/comments.html %}
-    {% else %}
-  {% endcase %}
-{% endfor %}
+{% if page.comments %}
+  {% include body/comments.html %}
+{% endif %}
+{% include if-non-null try="components/related-posts.html" %}
